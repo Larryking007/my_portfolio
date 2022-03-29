@@ -1,3 +1,3 @@
 # my_portfolio
-# first react project
-# todo app
+first react project
+todo app
