@@ -8,10 +8,11 @@ const App = () => {
 
   const [recipies, setRecipies] = useState([]);
   const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("chicken");
 
   useEffect(() => {
     getRecipies();
-  }, []);
+  }, [query]);
 
   const getRecipies = async () => {
     /* const response = await fetch(
@@ -25,9 +26,16 @@ const App = () => {
   const updateSearch = (e) => {
     setSearch(e.target.value);
   };
+
+  const getSearch = (e) => {
+    e.preventDefault();
+    setQuery(search);
+    setSearch("");
+  };
+
   return (
     <div className="App">
-      <form className="search-form">
+      <form onSubmit={getSearch} className="search-form">
         <input
           className="search-bar"
           type="text"
@@ -38,14 +46,17 @@ const App = () => {
           Search
         </button>
       </form>
-      {recipies.map((recipie) => (
-        <Recipie
-          key={recipie.recipie.label}
-          title={recipie.recipie.label}
-          calories={recipie.recipie.calories}
-          image={recipie.recipie.image}
-        />
-      ))}
+      <div className="recipies">
+        {recipies.map((recipie) => (
+          <Recipie
+            key={recipie.recipie.label}
+            title={recipie.recipie.label}
+            calories={recipie.recipie.calories}
+            image={recipie.recipie.image}
+            ingredients={recipie.recipie.ingredients}
+          />
+        ))}
+      </div>
     </div>
   );
 };
